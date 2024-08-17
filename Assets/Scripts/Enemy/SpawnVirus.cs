@@ -11,6 +11,7 @@ public class SpawnVirus : MonoBehaviour
     public float maxSpawnTime;
     private float spawnTime;
     public GameObject virus;
+    public int amountOfVirusses;
     void Start()
     {
         spawnTime = maxSpawnTime;
@@ -22,7 +23,13 @@ public class SpawnVirus : MonoBehaviour
         spawnTime -= Time.deltaTime;
         if(spawnTime <= 0f)
         {
+            Instantiate(virus,transform.position+(Vector3)(spawnRadius*Random.insideUnitCircle),Quaternion.identity);
             spawnTime = maxSpawnTime;
+            amountOfVirusses++;
         }
+    }
+    public void VirusDied(int points)
+    {
+        amountOfVirusses--;
     }
 }

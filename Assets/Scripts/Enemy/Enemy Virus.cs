@@ -18,6 +18,7 @@ public class EnemyVirus : MonoBehaviour
     private float dirChangeCooldown;
     private int pointValue = 100; // the amount of point awarded for killing this enemy
     private UIManager uiManager;
+    private SpawnVirus virusSpawner;
     public event Action<int> enemyKilled;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
@@ -27,12 +28,14 @@ public class EnemyVirus : MonoBehaviour
         Player player = FindAnyObjectByType<Player>();
         playerTransform = player.transform;
         uiManager = FindAnyObjectByType<UIManager>();
+        virusSpawner = FindAnyObjectByType<SpawnVirus>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.speed = speed;
         targetDir = transform.up;
         enemyKilled += uiManager.IncrementScore;
+        enemyKilled += virusSpawner.VirusDied;
     }
 
     // Update is called once per frame
