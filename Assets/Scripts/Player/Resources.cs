@@ -5,6 +5,7 @@ using UnityEngine;
 public class Resources : MonoBehaviour
 {
     // Levels
+    [Header("Levels")]
     [Range(0,10)]
     [SerializeField] int gluttonyLevel;
     [Range(0, 10)]
@@ -15,6 +16,7 @@ public class Resources : MonoBehaviour
     [SerializeField] int dashLevel;
 
     // Resources
+    [Header("Resources")]
     [Range(0, 100)]
     [SerializeField] int gluttonyResources;
     [Range(0, 100)]
@@ -43,6 +45,10 @@ public class Resources : MonoBehaviour
         speedResources += resources[1];
         immunityResources += resources[2];
         dashResources += resources[3];
+        
+    }
+    public void AddResource(int resource)
+    {
         
     }
 }
