@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
     {
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
     }
+
     void Dash(float time)
     {
         // Get currentDirection
