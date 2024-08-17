@@ -20418,6 +20418,10 @@ PrefabInstance:
       propertyPath: gluttonyLevel
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8875103744125579870, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
+      propertyPath: immunityLevel
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
