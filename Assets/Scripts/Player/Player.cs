@@ -1,13 +1,28 @@
+using DG.Tweening.Core.Easing;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Range(1,10)]
-    public float speedMultiplier = 1f;
+
+
+    // Dash variables
+    [Header("Dash Variables")]
     [Range(10, 100)]
-    public float dashMultiplier = 10f;
+    public float maxDashMultiplier = 10f;
+    private float maxDashTime = 0.5f;
+    private float currentDashTime = 0f;
+    [Range(0, 10)]
+    public float maxDashCoolDown = 2f;
+    private float dashCoolDown;
+    public TextMeshProUGUI coolDownText;
+
+    // Speed variables
+    [Header("Speed Variables")]
     [Range(0, 10)]
     public float speed = 5f;
+    [Range(1, 10)]
+    public float speedMultiplier = 1f;
 
     [SerializeField]
     Transform cameraTransform;
@@ -18,19 +33,42 @@ public class Player : MonoBehaviour
     {
         input = GetComponent<InputReader>();
     }
+    private void Start()
+    {
 
+        dashCoolDown = maxDashCoolDown;
+    }
     // Update is called once per frame
     void Update()
     {
-        if(input.Dash>0f)
+        // If player presses shift and player has waited cooldown seconds
+        if(input.Dash > 0f && dashCoolDown >= maxDashCoolDown)
         {
-            Dash();
+            // Is currently dashing
+            if(currentDashTime <= maxDashTime)
+            {
+                // Subtract time variables
+                currentDashTime += Time.deltaTime;
+                Dash(currentDashTime);
+                
+            }
+            else
+            {
+                currentDashTime = 0f;
+                dashCoolDown = 0f;
+            }
+           
+            
         }
         else
         {
+            // Increase cooldown until at max dash cooldown
+            dashCoolDown += Time.deltaTime;
+            // Dash is done, reset all variables
+            
             MovePlayer();
         }
-        
+        coolDownText.text = dashCoolDown.ToString();
         MoveCamera();
     }
 
@@ -51,13 +89,17 @@ public class Player : MonoBehaviour
     {
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
     }
-    void Dash()
+    void Dash(float time)
     {
         // Get currentDirection
         Vector3 delta = new Vector3(input.Move.x, input.Move.y, 0);
-        
-        // Multiply by dashmultiplier
-        delta *= speed * speedMultiplier*dashMultiplier;
+
+        // Linear interpolation between the minimum dash value and maximum dash value.
+        // See link: https://www.transum.org/Maths/Activity/Graph/Desmos.asp
+        float currentDashMultiplier = Mathf.Exp(-time)* maxDashMultiplier;
+        delta *= speed * speedMultiplier* currentDashMultiplier;
+
+
         // Multiply by deltaTime so that the movement is framerate independent
         delta *= Time.deltaTime;
 
