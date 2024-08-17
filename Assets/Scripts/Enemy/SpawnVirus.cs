@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SpawnVirus : MonoBehaviour
@@ -12,24 +11,30 @@ public class SpawnVirus : MonoBehaviour
     private float spawnTime;
     public GameObject virus;
     public int amountOfVirusses;
+    private UIManager uiManager;
+    public event Action<int> virusCountChanged;
     void Start()
     {
+        uiManager = FindAnyObjectByType<UIManager>();
         spawnTime = maxSpawnTime;
+        virusCountChanged += uiManager.AdjustSicknessLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
         spawnTime -= Time.deltaTime;
-        if(spawnTime <= 0f)
+        if (spawnTime <= 0f)
         {
-           Instantiate(virus,transform.position+(Vector3)(spawnRadius*Random.insideUnitCircle),Quaternion.identity);
+            Instantiate(virus, transform.position + (Vector3)(spawnRadius * UnityEngine.Random.insideUnitCircle), Quaternion.identity);
             spawnTime = maxSpawnTime;
             amountOfVirusses++;
+            virusCountChanged?.Invoke(amountOfVirusses);
         }
     }
     public void VirusDied(int points)
     {
         amountOfVirusses--;
+        virusCountChanged?.Invoke(amountOfVirusses);
     }
 }
