@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // If player presses shift and player has waited cooldown seconds
+
         if(input.Dash > 0f && dashCoolDown >= maxDashCoolDown && input.Move.magnitude>0)
         {
             // Is currently dashing
@@ -61,8 +62,9 @@ public class Player : MonoBehaviour
         {
             // Increase cooldown until at max dash cooldown
             dashCoolDown += Time.deltaTime;
+            dashCoolDown = Mathf.Min(dashCoolDown, maxDashCoolDown);
             // Dash is done, reset all variables
-            
+
             MovePlayer();
         }
         coolDownText.text = dashCoolDown.ToString();
@@ -102,5 +104,8 @@ public class Player : MonoBehaviour
 
         // Update the player's position by adding the change in movement
         transform.position += delta;
+    }
+    void Grow()
+    { 
     }
 }
