@@ -1,9 +1,16 @@
 using DG.Tweening.Core.Easing;
+using System.Data.SqlTypes;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    [Header("Grow Variables")]
+    [Range(0, 1f)]
+    public float growMultiplier = 0.05f;
+
 
 
     // Dash variables
@@ -63,11 +70,16 @@ public class Player : MonoBehaviour
             // Increase cooldown until at max dash cooldown
             dashCoolDown += Time.deltaTime;
             dashCoolDown = Mathf.Min(dashCoolDown, maxDashCoolDown);
-            // Dash is done, reset all variables
 
             MovePlayer();
         }
         coolDownText.text = dashCoolDown.ToString();
+
+        if(input.Grow>0f)
+        {
+            Grow();
+        }
+        
         MoveCamera();
     }
 
@@ -106,6 +118,9 @@ public class Player : MonoBehaviour
         transform.position += delta;
     }
     void Grow()
-    { 
+    {
+        
+        transform.localScale *= Time.deltaTime * growMultiplier + 1;
+        speedMultiplier /= Time.deltaTime * growMultiplier + 1;
     }
 }
