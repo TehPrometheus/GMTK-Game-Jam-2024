@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private float maxDashTime = 0.5f;
     private float currentDashTime = 0f;
     [Range(0, 10)]
-    public float maxDashCoolDown = 2f;
+    public float maxDashCoolDown = 6f;
     private float dashCoolDown;
     public TextMeshProUGUI coolDownText;
 
@@ -34,10 +34,7 @@ public class Player : MonoBehaviour
     [Header("Speed Variables")]
     [Range(0, 10)]
     public float speed = 5f;
-    /*
-    [Range(1, 10)]
-    public float speedMultiplier = 1f;
-    */
+    
 
     [Header("Camera Variables")]
     [SerializeField]
@@ -90,8 +87,10 @@ public class Player : MonoBehaviour
         {
             // Increase cooldown until at max dash cooldown
             dashCoolDown += Time.deltaTime;
+            maxDashCoolDown = 6f;
+            maxDashCoolDown -= resources.dashLevel*0.55f;
             dashCoolDown = Mathf.Min(dashCoolDown, maxDashCoolDown);
-
+            
             // Only move player when not in the action of Dashing
             MovePlayer();
         }
