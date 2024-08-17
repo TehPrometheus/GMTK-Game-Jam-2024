@@ -28,6 +28,7 @@ public class EnemyVirus : MonoBehaviour
     void Start()
     {
         Player player = FindAnyObjectByType<Player>();
+        Resources resources = player.GetComponent<Resources>();
         playerTransform = player.transform;
         uiManager = FindAnyObjectByType<UIManager>();
         virusSpawner = FindAnyObjectByType<SpawnVirus>();
@@ -39,7 +40,7 @@ public class EnemyVirus : MonoBehaviour
         enemyKilled += uiManager.IncrementScore;
         enemyKilled += uiManager.IncrementEnemiesKilled;
         enemyKilled += virusSpawner.VirusDied;
-        resourcesReleased += Resources.VirusDied;
+        resourcesReleased += resources.AddResources;
     }
 
     // Update is called once per frame
