@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     // Dash variables
     [Header("Dash Variables")]
-    [Range(10, 100)]
+    [Range(1, 10)]
     public float maxDashMultiplier = 10f;
     private float maxDashTime = 0.5f;
     private float currentDashTime = 0f;
@@ -42,23 +42,20 @@ public class Player : MonoBehaviour
     void Update()
     {
         // If player presses shift and player has waited cooldown seconds
-        if(input.Dash > 0f && dashCoolDown >= maxDashCoolDown)
+        if(input.Dash > 0f && dashCoolDown >= maxDashCoolDown && input.Move.magnitude>0)
         {
             // Is currently dashing
-            if(currentDashTime <= maxDashTime)
+            while(currentDashTime <= maxDashTime)
             {
-                // Subtract time variables
+                // Add dashTime
                 currentDashTime += Time.deltaTime;
                 Dash(currentDashTime);
                 
             }
-            else
-            {
-                currentDashTime = 0f;
-                dashCoolDown = 0f;
-            }
-           
-            
+            currentDashTime = 0f;
+            dashCoolDown = 0f;
+
+
         }
         else
         {
@@ -96,7 +93,7 @@ public class Player : MonoBehaviour
 
         // Linear interpolation between the minimum dash value and maximum dash value.
         // See link: https://www.transum.org/Maths/Activity/Graph/Desmos.asp
-        float currentDashMultiplier = Mathf.Exp(-time)* maxDashMultiplier;
+        float currentDashMultiplier = Mathf.Exp(-time) * maxDashMultiplier;
         delta *= speed * speedMultiplier* currentDashMultiplier;
 
 

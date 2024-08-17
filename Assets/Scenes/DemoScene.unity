@@ -858,7 +858,7 @@ PrefabInstance:
       objectReference: {fileID: 1706592482}
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: maxDashMultiplier
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: dashCurve.m_Curve.Array.size
