@@ -5,17 +5,22 @@ public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreTMP;
     public TextMeshProUGUI multiplierTMP;
+    public TextMeshProUGUI sicknessTMP;
     private int score = 0;
     private int multiplier = 1;
     private int enemiesRecentlyKilled = 0;
     [Range(0f, 10f)]
     public float multiplierResetTime = 5f;
     private float accTime = 0f;
+    [Range(0f, 10f)]
+    public float sicknessScalingFactor = 1f;
+    private float sickness = 0f;
     // Start is called before the first frame update
     void Start()
     {
         scoreTMP.text = "Score: " + score.ToString();
         multiplierTMP.text = "Multiplier: " + multiplier.ToString() + "X";
+        sicknessTMP.text = "Sickness: " + sickness.ToString() + "%";
     }
 
     private void Update()
@@ -37,6 +42,13 @@ public class UIManager : MonoBehaviour
     void UpdateScoreText()
     {
         scoreTMP.text = "Score: " + score.ToString();
+    }
+
+    public void AdjustSicknessLevel(int numEnemiesAlive)
+    {
+        sickness = numEnemiesAlive * sicknessScalingFactor;
+        sickness = Mathf.Clamp(sickness, 0f, 100f);
+        UpdateSicknessText();
     }
 
     public void IncrementEnemiesKilled(int notUsed)
@@ -67,5 +79,10 @@ public class UIManager : MonoBehaviour
     {
 
         multiplierTMP.text = "Multiplier: " + multiplier.ToString() + "X";
+    }
+
+    private void UpdateSicknessText()
+    {
+        sicknessTMP.text = "Sickness: " + sickness.ToString("F2") + "%";
     }
 }
