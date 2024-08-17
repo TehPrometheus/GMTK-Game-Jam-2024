@@ -39,4 +39,11 @@ public class Player : MonoBehaviour
     {
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        //Debug.Log("I collided with something");
+    }
+
+
 }
