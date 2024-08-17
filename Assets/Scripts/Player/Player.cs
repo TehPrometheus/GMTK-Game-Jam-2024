@@ -7,13 +7,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    [Header("Grow Variables")]
+    [Header("Size Variables")]
     [Range(0, 1f)]
     public float growMultiplier = 0.05f;
     public float totalSize = 1f;
     [Range(1, 10f)]
     public float maxTotalSize = 1f;
-    public bool isGrowing = false;
+    [Range(1, 10f)]
+    public float minTotalSize = 1f;
+    public bool isChangingSize = false;
 
 
     // Dash variables
@@ -90,7 +92,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            isGrowing = false;
+            isChangingSize = false;
         }
         
         MoveCamera();
@@ -112,7 +114,7 @@ public class Player : MonoBehaviour
     void MoveCamera()
     {
         // If player is growing zoom out, otherwise keep the same distance.
-        mainCamera.orthographicSize = isGrowing ? Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomOutFactor, maxCameraSize) : mainCamera.orthographicSize;
+        mainCamera.orthographicSize = isChangingSize ? Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomOutFactor, maxCameraSize) : mainCamera.orthographicSize;
         //mainCamera.orthographicSize += transform.localScale.x * cameraZoomOutFactor;
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
         
@@ -125,7 +127,7 @@ public class Player : MonoBehaviour
         // Linear interpolation between the minimum dash value and maximum dash value.
         // See link: https://www.transum.org/Maths/Activity/Graph/Desmos.asp
         float currentDashMultiplier = Mathf.Exp(-time) * maxDashMultiplier;
-        delta *= speed * speedMultiplier* currentDashMultiplier;
+        delta *= speed * currentDashMultiplier;
 
 
         // Multiply by deltaTime so that the movement is framerate independent
@@ -141,7 +143,7 @@ public class Player : MonoBehaviour
         totalSize = Mathf.Min(totalSize, maxTotalSize);
         transform.localScale = new Vector3(totalSize, totalSize, 0);
         speedMultiplier /= Time.deltaTime * growMultiplier + 1;
-        isGrowing = true;
+        isChangingSize = true;
         
     }
 }
