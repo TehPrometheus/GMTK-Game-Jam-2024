@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1741826986572793458}
   - component: {fileID: 7401860461864927883}
   - component: {fileID: 5213261150607305524}
+  - component: {fileID: 8288745696443187077}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e17e0b78a9281841becf421a7f454ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gluttonyLevel: 0
+  gluttonyLevel: 10
   speedLevel: 0
   immunityLevel: 0
   dashLevel: 0
@@ -138,6 +139,7 @@ MonoBehaviour:
   speedResources: 0
   immunityResources: 0
   dashResources: 0
+  resourcesNeededToLevel: 100
 --- !u!114 &4907463447940331525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,3 +238,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2.3233984, y: 3.668019}
   m_Direction: 0
+--- !u!114 &8288745696443187077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2663082443240080440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e17e0b78a9281841becf421a7f454ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gluttonyLevel: 0
+  speedLevel: 0
+  immunityLevel: 0
+  dashLevel: 0
+  gluttonyResources: 0
+  speedResources: 0
+  immunityResources: 0
+  dashResources: 0
+  resourcesNeededToLevel: 100

@@ -23,7 +23,7 @@ public class SpawnVirus : MonoBehaviour
         spawnTime -= Time.deltaTime;
         if(spawnTime <= 0f)
         {
-            Instantiate(virus,transform.position+(Vector3)(spawnRadius*Random.insideUnitCircle),Quaternion.identity);
+           Instantiate(virus,transform.position+(Vector3)(spawnRadius*Random.insideUnitCircle),Quaternion.identity);
             spawnTime = maxSpawnTime;
             amountOfVirusses++;
         }

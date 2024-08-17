@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,13 @@ public class Resources : MonoBehaviour
     // Levels
     [Header("Levels")]
     [Range(0,10)]
-    [SerializeField] int gluttonyLevel;
+    public int gluttonyLevel;
     [Range(0, 10)]
-    [SerializeField] int speedLevel;
+    public int speedLevel;
     [Range(0, 10)]
-    [SerializeField] int immunityLevel;
+    public int immunityLevel;
     [Range(0, 10)]
-    [SerializeField] int dashLevel;
+    public int dashLevel;
 
     // Resources
     [Header("Resources")]
@@ -27,6 +28,8 @@ public class Resources : MonoBehaviour
     [SerializeField] int dashResources;
     [Range(0, 100)]
     public int resourcesNeededToLevel = 100;
+
+
 
     public enum ResourceType{
         gluttony,
@@ -66,6 +69,7 @@ public class Resources : MonoBehaviour
             {
                 gluttonyLevel++;
                 gluttonyResources -= resourcesNeededToLevel;
+        
             }
            
         }
