@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     public float maxTotalSize = 1f;
     [Range(1, 10f)]
     public float minTotalSize = 1f;
-    public bool isChangingSize = false;
+    public bool isGrowing = false;
+    public bool isShrinking = false;
 
 
     // Dash variables
@@ -42,9 +43,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     Camera mainCamera;
     [Range(0, 0.01f)]
-    public float cameraZoomOutFactor = 0.01f;
+    public float cameraZoomFactor = 0.01f;
     [Range(5f,20f)]
     public float maxCameraSize = 20f;
+    [Range(5f, 20f)]
+    public float minCameraSize = 5f;
 
     InputReader input;
     // Start is called before the first frame update
@@ -59,18 +62,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If player presses shift and player has waited cooldown seconds
-
+        // If player presses shift and player has waited cooldown seconds, start dashing
         if(input.Dash > 0f && dashCoolDown >= maxDashCoolDown && input.Move.magnitude>0)
         {
             // Is currently dashing
             while(currentDashTime <= maxDashTime)
             {
-                // Add dashTime
+                // Add dashTime until max is reached
                 currentDashTime += Time.deltaTime;
                 Dash(currentDashTime);
                 
             }
+
+            // Reset variables
             currentDashTime = 0f;
             dashCoolDown = 0f;
 
@@ -82,18 +86,30 @@ public class Player : MonoBehaviour
             dashCoolDown += Time.deltaTime;
             dashCoolDown = Mathf.Min(dashCoolDown, maxDashCoolDown);
 
+            // Only move player when not in the action of Dashing
             MovePlayer();
         }
+
+        // Debug text
         coolDownText.text = dashCoolDown.ToString();
 
+
+        // Growing Mechanic
         if(input.Grow>0f)
         {
+            isShrinking = false;
             Grow();
         }
-        else
+        else if ( input.Shrink > 0f)
         {
-            isChangingSize = false;
+            isGrowing = false;
+            Shrink();
         }
+        else { 
+            isGrowing = false;
+            isShrinking = false;
+        }
+        
         
         MoveCamera();
     }
@@ -113,9 +129,17 @@ public class Player : MonoBehaviour
 
     void MoveCamera()
     {
-        // If player is growing zoom out, otherwise keep the same distance.
-        mainCamera.orthographicSize = isChangingSize ? Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomOutFactor, maxCameraSize) : mainCamera.orthographicSize;
-        //mainCamera.orthographicSize += transform.localScale.x * cameraZoomOutFactor;
+        // If player is changing size zoom in or out, otherwise keep the same distance.
+        if(isGrowing)
+        {
+            mainCamera.orthographicSize = Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomFactor, maxCameraSize);
+            
+        }
+        else if(isShrinking)
+        {
+            mainCamera.orthographicSize = Mathf.Max(mainCamera.orthographicSize - transform.localScale.x * cameraZoomFactor, minCameraSize);
+        }
+        
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
         
     }
@@ -124,7 +148,7 @@ public class Player : MonoBehaviour
         // Get currentDirection
         Vector3 delta = new Vector3(input.Move.x, input.Move.y, 0);
 
-        // Linear interpolation between the minimum dash value and maximum dash value.
+        // e^-time
         // See link: https://www.transum.org/Maths/Activity/Graph/Desmos.asp
         float currentDashMultiplier = Mathf.Exp(-time) * maxDashMultiplier;
         delta *= speed * currentDashMultiplier;
@@ -138,12 +162,22 @@ public class Player : MonoBehaviour
     }
     void Grow()
     {
-
+        // Increase totalSize var and scale (until max is reached). Reduce speedMultiplier
         totalSize += Time.deltaTime * growMultiplier;
         totalSize = Mathf.Min(totalSize, maxTotalSize);
         transform.localScale = new Vector3(totalSize, totalSize, 0);
         speedMultiplier /= Time.deltaTime * growMultiplier + 1;
-        isChangingSize = true;
+        isGrowing = true;
         
+    }
+    void Shrink()
+    {
+        // Decrease totalSize var and scale (until min is reached). Reduce speedMultiplier
+        totalSize -= Time.deltaTime * growMultiplier;
+        totalSize = Mathf.Max(totalSize, minTotalSize);
+        transform.localScale = new Vector3(totalSize, totalSize, 0);
+        speedMultiplier *= Time.deltaTime * growMultiplier + 1;
+        isShrinking = true;
+
     }
 }
