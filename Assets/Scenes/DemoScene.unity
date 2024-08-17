@@ -800,6 +800,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1741826986572793458, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
+      propertyPath: m_NotificationBehavior
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2663082443240080440, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: m_Name
       value: Player
@@ -845,12 +849,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1706592485}
+    - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: coolDownText
       value: 
       objectReference: {fileID: 386132830}
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
+      propertyPath: maxTotalSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
+      propertyPath: maxCameraSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: dashMultiplier
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
+      propertyPath: growMultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: cameraTransform
@@ -859,6 +879,10 @@ PrefabInstance:
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: maxDashMultiplier
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
+      propertyPath: cameraZoomOutFactor
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: dashCurve.m_Curve.Array.size
