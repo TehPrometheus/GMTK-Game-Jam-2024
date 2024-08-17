@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,6 +21,7 @@ public class EnemyVirus : MonoBehaviour
     private UIManager uiManager;
     private SpawnVirus virusSpawner;
     public event Action<int> enemyKilled;
+    public event Action<int[]> resourcesReleased;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
     // Start is called before the first frame update
@@ -36,6 +38,7 @@ public class EnemyVirus : MonoBehaviour
         targetDir = transform.up;
         enemyKilled += uiManager.IncrementScore;
         enemyKilled += virusSpawner.VirusDied;
+        resourcesReleased += Resources.VirusDied;
     }
 
     // Update is called once per frame
@@ -96,6 +99,8 @@ public class EnemyVirus : MonoBehaviour
     public void Die()
     {
         enemyKilled?.Invoke(pointValue);
+        int[] resources = new int[] {1, 2, 3, 4, 5};
+        resourcesReleased?.Invoke(resources);
         Destroy(gameObject);
     }
 
