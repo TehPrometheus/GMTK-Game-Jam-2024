@@ -35,6 +35,7 @@ public class EnemyVirus : MonoBehaviour
         agent.speed = speed;
         targetDir = transform.up;
         enemyKilled += uiManager.IncrementScore;
+        enemyKilled += uiManager.IncrementEnemiesKilled;
         enemyKilled += virusSpawner.VirusDied;
     }
 
@@ -51,7 +52,6 @@ public class EnemyVirus : MonoBehaviour
             currentState = enemyAIStates.wander;
         }
         ExecuteBehaviour();
-
     }
 
     private void ExecuteBehaviour()

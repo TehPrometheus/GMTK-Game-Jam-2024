@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6489998989839929836}
   - component: {fileID: 4907463447940331525}
   - component: {fileID: 1741826986572793458}
-  - component: {fileID: 8670566111709701295}
   - component: {fileID: 7401860461864927883}
+  - component: {fileID: 5213261150607305524}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -75,9 +75,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1719538339
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 2fbe069a924b709419a9be2b8f9ce197, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -159,8 +159,29 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!58 &8670566111709701295
-CircleCollider2D:
+--- !u!95 &7401860461864927883
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2663082443240080440}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d5cfd52720c0d64090974a5dd15931c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &5213261150607305524
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -191,9 +212,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.29868746, y: 0}
-  serializedVersion: 2
-  m_Radius: 2.9981112
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2.3233984, y: 3.668019}
+  m_Direction: 0
 --- !u!95 &7401860461864927883
 Animator:
   serializedVersion: 5
