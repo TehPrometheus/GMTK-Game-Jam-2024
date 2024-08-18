@@ -23,6 +23,7 @@ public class EnemyVirus : MonoBehaviour
     public event Action<int> enemyKilled;
     public event Action playerSpiked;
     public event Action<int[]> resourcesReleased;
+    public CircleCollider2D circleCollider;
     private Resources resources;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
@@ -41,7 +42,6 @@ public class EnemyVirus : MonoBehaviour
         agent.speed = speed;
         targetDir = transform.up;
         enemyKilled += uiManager.IncrementScore;
-        enemyKilled += virusSpawner.VirusDied;
         resourcesReleased += resources.AddResources;
         enemyKilled += player.UpdateSizeXP;
         playerSpiked += player.DecreaseSizeLevel;
@@ -77,6 +77,7 @@ public class EnemyVirus : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        //col.GetHashCode() == 
         if (col.tag == "Player")
         {
             if (isSpiky)
@@ -135,7 +136,7 @@ public class EnemyVirus : MonoBehaviour
 
         if (dirChangeCooldown < 0)
         {
-            var randomAngle = UnityEngine.Random.Range(0f, 360f);
+            var randomAngle = UnityEngine.Random.Range(-90f, 90f);
             var rotation = Quaternion.AngleAxis(randomAngle, transform.forward);
 
             targetDir = rotation * targetDir;

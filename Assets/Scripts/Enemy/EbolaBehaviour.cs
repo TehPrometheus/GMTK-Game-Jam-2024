@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EbolaBehaviour : MonoBehaviour
 {
-    
+
     public enum enemyAIStates
     {
         wander,
@@ -57,7 +55,6 @@ public class EbolaBehaviour : MonoBehaviour
         agent.speed = speed;
         targetDir = transform.up;
         enemyKilled += uiManager.IncrementScore;
-        enemyKilled += virusSpawner.VirusDied;
         resourcesReleased += resources.AddResources;
         enemyKilled += player.UpdateSizeXP;
 
@@ -74,7 +71,7 @@ public class EbolaBehaviour : MonoBehaviour
         }
         currentDashTime -= Time.deltaTime;
         var distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        if(distanceToPlayer < evadeDistance) 
+        if (distanceToPlayer < evadeDistance)
         {
             currentState = enemyAIStates.evade;
         }
@@ -82,7 +79,7 @@ public class EbolaBehaviour : MonoBehaviour
         {
             currentState = enemyAIStates.wander;
         }
-        
+
         ExecuteBehaviour();
     }
 
@@ -96,7 +93,7 @@ public class EbolaBehaviour : MonoBehaviour
             case enemyAIStates.evade:
                 ExecuteEvadeState();
                 break;
-                  
+
         }
     }
 
@@ -116,7 +113,7 @@ public class EbolaBehaviour : MonoBehaviour
         FaceAwayFromTarget();
         Debug.DrawLine(transform.position, destination, Color.red);
     }
-    
+
 
     private void ExecuteEvadeState()
     {
@@ -127,7 +124,7 @@ public class EbolaBehaviour : MonoBehaviour
 
         Debug.DrawLine(transform.position, destination, Color.green);
         // If cooldown is done, increase speed and acc
-        if(dashCoolDown>=maxDashCoolDown)
+        if (dashCoolDown >= maxDashCoolDown)
         {
             // Reset dash time
             dashCoolDown = 0f;
@@ -135,8 +132,8 @@ public class EbolaBehaviour : MonoBehaviour
             currentDashTime = maxDashTime;
 
         }
-        
-        
+
+
 
 
         agent.SetDestination(destination);
@@ -160,7 +157,7 @@ public class EbolaBehaviour : MonoBehaviour
         {
             var randomAngle = UnityEngine.Random.Range(0f, 360f);
             var rotation = Quaternion.AngleAxis(randomAngle, transform.forward);
-            
+
             targetDir = rotation * targetDir;
             dirChangeCooldown = UnityEngine.Random.Range(0f, 2f);
         }
@@ -173,8 +170,8 @@ public class EbolaBehaviour : MonoBehaviour
 
         if (vel != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward,vel);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
         }
     }
-    
+
 }

@@ -5,7 +5,7 @@ public class SceneLoader : MonoBehaviour
 {
     public void HandlePlayButton()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Level1Scene");
     }
     public void HandleOptionsButton()
     {
