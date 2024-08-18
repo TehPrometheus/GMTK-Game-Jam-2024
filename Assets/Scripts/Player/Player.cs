@@ -120,21 +120,16 @@ public class Player : MonoBehaviour
         }
 
         // Growing Mechanic
-        //if (input.Grow > 0f)
-        //{
-        //    isShrinking = false;
-        //    Grow();
-        //}
-        //else if (input.Shrink > 0f)
-        //{
-        //    isGrowing = false;
-        //    Shrink();
-        //}
-        //else
-        //{
-        //    isGrowing = false;
-        //    isShrinking = false;
-        //}
+        if (input.Grow > 0f)
+        {
+            ZoomCamera(true);
+            
+        }
+        else if (input.Shrink > 0f)
+        {
+            ZoomCamera(false);
+        }
+        
 
 
         MoveCamera();
@@ -165,9 +160,9 @@ public class Player : MonoBehaviour
     {
         // If player is changing size zoom in or out, otherwise keep the same distance.
         if (zoomOut)
-            mainCamera.orthographicSize = Mathf.Max(mainCamera.orthographicSize - transform.localScale.x * cameraZoomFactor, minCameraSize);
-        else
             mainCamera.orthographicSize = Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomFactor, maxCameraSize);
+        else
+            mainCamera.orthographicSize = Mathf.Max(mainCamera.orthographicSize - transform.localScale.x * cameraZoomFactor, minCameraSize);
     }
 
     void Dash(float time)
