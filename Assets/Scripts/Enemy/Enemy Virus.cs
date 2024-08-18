@@ -30,6 +30,7 @@ public class EnemyVirus : MonoBehaviour
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
     // Start is called before the first frame update
     private bool isSpiky = false;
+    public float spawnInvulDuration = 3f;
     void Start()
     {
         Player player = FindAnyObjectByType<Player>();
@@ -51,6 +52,10 @@ public class EnemyVirus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (spawnInvulDuration > 0)
+        {
+            spawnInvulDuration -= Time.deltaTime;
+        }
         var distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
         if (distanceToPlayer < evadeDistance)
         {
@@ -78,7 +83,7 @@ public class EnemyVirus : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Player")
+        if (col.tag == "Player" && spawnInvulDuration < 0)
         {
             if (isSpiky)
             {
