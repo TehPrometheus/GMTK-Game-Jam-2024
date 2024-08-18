@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  pointValue: 100
+  pointIncreaseValue: 50
   evadeDistance: 3
 --- !u!195 &8982093900564576976
 NavMeshAgent:

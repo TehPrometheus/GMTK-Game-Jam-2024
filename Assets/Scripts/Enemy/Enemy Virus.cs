@@ -16,12 +16,14 @@ public class EnemyVirus : MonoBehaviour
     private Vector3 targetDir;
     private NavMeshAgent agent;
     private float dirChangeCooldown;
-    private int pointValue = 100; // the amount of point awarded for killing this enemy
+    public int pointValue = 100; // the amount of point awarded for killing this enemy
+    public int pointIncreaseValue = 50; // the extra amount of points for gluttony level
     private UIManager uiManager;
     private SpawnVirus virusSpawner;
     public event Action<int> enemyKilled;
     public event Action playerSpiked;
     public event Action<int[]> resourcesReleased;
+    private Resources resources;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
     // Start is called before the first frame update
@@ -73,26 +75,6 @@ public class EnemyVirus : MonoBehaviour
         }
     }
 
-    private void ExecuteWanderState()
-    {
-        HandleDirectionChange();
-        var destination = transform.position + targetDir;
-        agent.SetDestination(destination);
-        Debug.DrawLine(transform.position, destination, Color.red);
-    }
-
-    private void ExecuteEvadeState()
-    {
-        var playerPos = playerTransform.position;
-        var myPos = transform.position;
-        var vectorToPlayerNormalized = (playerPos - myPos).normalized;
-        var destination = -vectorToPlayerNormalized * speed + myPos;
-
-        Debug.DrawLine(transform.position, destination, Color.green);
-
-        agent.SetDestination(destination);
-    }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Player")
@@ -109,11 +91,41 @@ public class EnemyVirus : MonoBehaviour
         }
     }
 
+    private void ExecuteWanderState()
+    {
+        HandleDirectionChange();
+        var destination = transform.position + targetDir;
+        agent.SetDestination(destination);
+        Debug.DrawLine(transform.position, destination, Color.red);
+    }
+    public void BeginSpikeAbility()
+    {
+        isSpiky = true;
+    }
+
+    public void EndSpikeAbility()
+    {
+        isSpiky = false;
+    }
+
+    private void ExecuteEvadeState()
+    {
+        var playerPos = playerTransform.position;
+        var myPos = transform.position;
+        var vectorToPlayerNormalized = (playerPos - myPos).normalized;
+        var destination = -vectorToPlayerNormalized * speed + myPos;
+
+        Debug.DrawLine(transform.position, destination, Color.green);
+
+        agent.SetDestination(destination);
+    }
+
     public void Die()
     {
+        pointValue+=resources.gluttonyLevel*pointIncreaseValue;
         enemyKilled?.Invoke(pointValue);
-        int[] resources = new int[] { 1, 2, 3, 4, 5 };
-        resourcesReleased?.Invoke(resources);
+        int[] resourceAmounts = new int[] { 105, 0, 0, 0};
+        resourcesReleased?.Invoke(resourceAmounts);
         Destroy(gameObject);
     }
 
@@ -130,14 +142,6 @@ public class EnemyVirus : MonoBehaviour
             dirChangeCooldown = UnityEngine.Random.Range(0f, 2f);
         }
     }
-
-    public void BeginSpikeAbility()
-    {
-        isSpiky = true;
-    }
-
-    public void EndSpikeAbility()
-    {
-        isSpiky = false;
-    }
+  
 }
+

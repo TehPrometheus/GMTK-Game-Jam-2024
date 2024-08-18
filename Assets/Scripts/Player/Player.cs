@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     private float maxDashTime = 0.5f;
     private float currentDashTime = 0f;
     [Range(0, 10)]
-    public float maxDashCoolDown = 2f;
+    public float maxDashCoolDown = 6f;
     private float dashCoolDown;
     public TextMeshProUGUI coolDownText;
 
@@ -37,8 +37,7 @@ public class Player : MonoBehaviour
     [Header("Speed Variables")]
     [Range(0, 10)]
     public float speed = 5f;
-    [Range(1, 10)]
-    public float speedMultiplier = 1f;
+    
 
 
     [Header("Camera Variables")]
@@ -53,6 +52,9 @@ public class Player : MonoBehaviour
     [Range(5f, 20f)]
     public float minCameraSize = 5f;
 
+
+    private Resources resources;
+
     InputReader input;
     // Start is called before the first frame update
     void Awake()
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Debug.Log(transform.localScale);
+        resources = GetComponent<Resources>();
         dashCoolDown = maxDashCoolDown;
         sizeLevelChanged += uiManager.UpdateMultiplierValue;
     }
@@ -90,8 +93,10 @@ public class Player : MonoBehaviour
         {
             // Increase cooldown until at max dash cooldown
             dashCoolDown += Time.deltaTime;
+            maxDashCoolDown = 6f;
+            maxDashCoolDown -= resources.dashLevel*0.55f;
             dashCoolDown = Mathf.Min(dashCoolDown, maxDashCoolDown);
-
+            
             // Only move player when not in the action of Dashing
             MovePlayer();
         }
@@ -125,7 +130,7 @@ public class Player : MonoBehaviour
         // Create a new Vector3 representing the change in movement since the last frame
         Vector3 delta = new Vector3(input.Move.x, input.Move.y, 0);
         // Multiply by speed so that we can control it
-        delta *= speed * speedMultiplier;
+        delta *= speed * (resources.speedLevel + 1);
         // Multiply by deltaTime so that the movement is framerate independent
         delta *= Time.deltaTime;
 
@@ -173,7 +178,7 @@ public class Player : MonoBehaviour
         totalSize += Time.deltaTime * growMultiplier;
         totalSize = Mathf.Min(totalSize, maxTotalSize);
         transform.localScale = new Vector3(totalSize, totalSize, 0);
-        speedMultiplier /= Time.deltaTime * growMultiplier + 1;
+        speed /= Time.deltaTime * growMultiplier + 1;
         isGrowing = true;
 
     }
@@ -183,7 +188,7 @@ public class Player : MonoBehaviour
         totalSize -= Time.deltaTime * growMultiplier;
         totalSize = Mathf.Max(totalSize, minTotalSize);
         transform.localScale = new Vector3(totalSize, totalSize, 0);
-        speedMultiplier *= Time.deltaTime * growMultiplier + 1;
+        speed *= Time.deltaTime * growMultiplier + 1;
         isShrinking = true;
 
     }
