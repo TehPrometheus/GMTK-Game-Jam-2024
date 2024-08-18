@@ -55,6 +55,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 mousePos;
     InputReader input;
+    public float knockbackForce = 5f;
+    private float delay = 0.2f;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -68,6 +71,9 @@ public class Player : MonoBehaviour
         dashCoolDown = maxDashCoolDown;
         sizeLevelChanged += uiManager.UpdateMultiplierValue;
     }
+
+
+
     // Update is called once per frame
     void Update()
     {
@@ -99,7 +105,7 @@ public class Player : MonoBehaviour
             dashCoolDown = Mathf.Min(dashCoolDown, maxDashCoolDown);
 
             // Only move player when not in the action of Dashing
-            //MovePlayer();
+            MovePlayer();
         }
 
         // Growing Mechanic
@@ -125,9 +131,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!(input.Dash > 0f && dashCoolDown >= maxDashCoolDown && input.Move.magnitude > 0))
-            MovePlayer();
-
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
@@ -135,7 +138,9 @@ public class Player : MonoBehaviour
 
     void MovePlayer()
     {
-        rb.MovePosition(rb.position + input.Move * speed * Time.deltaTime);
+        Vector3 delta = new Vector3(input.Move.x, input.Move.y, 0) * speed * Time.fixedDeltaTime;
+        transform.position += delta;
+        //rb.MovePosition(rb.position + input.Move * speed * Time.fixedDeltaTime);
     }
 
     void MoveCamera()
@@ -234,4 +239,18 @@ public class Player : MonoBehaviour
         sizeXP = 0;
     }
 
+    public void PlayKnockBack(GameObject sender)
+    {
+        //Debug.Log("Knockback engaged");
+        StopAllCoroutines();
+        Vector2 direction = (transform.position - sender.transform.position).normalized;
+        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        StartCoroutine(Reset());
+    }
+
+    private System.Collections.IEnumerator Reset()
+    {
+        yield return new WaitForSeconds(delay);
+        rb.velocity = Vector3.zero;
+    }
 }

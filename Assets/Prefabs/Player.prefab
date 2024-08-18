@@ -35,8 +35,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -113,13 +113,13 @@ MonoBehaviour:
   uiManager: {fileID: 0}
   maxDashMultiplier: 3
   maxDashCoolDown: 2
-  coolDownText: {fileID: 0}
-  speed: 5
+  speed: 1
   cameraTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   cameraZoomFactor: 0.01
   maxCameraSize: 10
   minCameraSize: 5
+  knockbackForce: 50
 --- !u!114 &8875103744125579870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
