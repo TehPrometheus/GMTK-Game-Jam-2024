@@ -16,8 +16,10 @@ public class UIManager : MonoBehaviour
     public float sicknessScalingFactor = 1f;
     private float sickness = 0f;
     // Start is called before the first frame update
+    private Resources resources;
     void Start()
     {
+        resources = FindObjectOfType<Player>().GetComponent<Resources>();
         scoreTMP.text = "Score: " + score.ToString();
         multiplierTMP.text = "Multiplier: " + multiplier.ToString() + "X";
         sicknessTMP.text = "Sickness: " + sickness.ToString() + "%";
@@ -46,6 +48,8 @@ public class UIManager : MonoBehaviour
 
     public void AdjustSicknessLevel(int numEnemiesAlive)
     {
+        sicknessScalingFactor = 1f;
+        sicknessScalingFactor -= resources.immunityLevel * 0.08f; 
         sickness = numEnemiesAlive * sicknessScalingFactor;
         sickness = Mathf.Clamp(sickness, 0f, 100f);
         UpdateSicknessText();
