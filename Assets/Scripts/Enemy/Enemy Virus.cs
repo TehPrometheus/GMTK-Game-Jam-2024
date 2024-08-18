@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,10 +20,12 @@ public class EnemyVirus : MonoBehaviour
     private UIManager uiManager;
     private SpawnVirus virusSpawner;
     public event Action<int> enemyKilled;
+    public event Action playerSpiked;
     public event Action<int[]> resourcesReleased;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
     // Start is called before the first frame update
+    private bool isSpiky = false;
     void Start()
     {
         Player player = FindAnyObjectByType<Player>();
@@ -38,9 +39,10 @@ public class EnemyVirus : MonoBehaviour
         agent.speed = speed;
         targetDir = transform.up;
         enemyKilled += uiManager.IncrementScore;
-        enemyKilled += uiManager.IncrementEnemiesKilled;
         enemyKilled += virusSpawner.VirusDied;
         resourcesReleased += resources.AddResources;
+        enemyKilled += player.UpdateSizeXP;
+        playerSpiked += player.DecreaseSizeLevel;
     }
 
     // Update is called once per frame
@@ -94,13 +96,23 @@ public class EnemyVirus : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Player")
-            Die();
+        {
+            if (isSpiky)
+            {
+                // decrease the player's sizeLevel ONCE
+                playerSpiked?.Invoke();
+            }
+            else
+            {
+                Die();
+            }
+        }
     }
 
     public void Die()
     {
         enemyKilled?.Invoke(pointValue);
-        int[] resources = new int[] {1, 2, 3, 4, 5};
+        int[] resources = new int[] { 1, 2, 3, 4, 5 };
         resourcesReleased?.Invoke(resources);
         Destroy(gameObject);
     }
@@ -117,5 +129,15 @@ public class EnemyVirus : MonoBehaviour
             targetDir = rotation * targetDir;
             dirChangeCooldown = UnityEngine.Random.Range(0f, 2f);
         }
+    }
+
+    public void BeginSpikeAbility()
+    {
+        isSpiky = true;
+    }
+
+    public void EndSpikeAbility()
+    {
+        isSpiky = false;
     }
 }
