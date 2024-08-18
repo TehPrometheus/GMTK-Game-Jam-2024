@@ -740,7 +740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &791649538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -128276,20 +128276,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4257755643441501419, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 4257755643441501419, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_Name
-      value: VirusSpawner
+      value: Corona Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.6
+      value: 3.3
       objectReference: {fileID: 0}
     - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.85
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -128322,14 +128318,6 @@ PrefabInstance:
     - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: spawnRadius
-      value: 4.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: maxSpawnTime
-      value: 0.042
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

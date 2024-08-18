@@ -41,7 +41,6 @@ public class EnemyVirus : MonoBehaviour
         agent.speed = speed;
         targetDir = transform.up;
         enemyKilled += uiManager.IncrementScore;
-        enemyKilled += virusSpawner.VirusDied;
         resourcesReleased += resources.AddResources;
         enemyKilled += player.UpdateSizeXP;
         playerSpiked += player.DecreaseSizeLevel;
