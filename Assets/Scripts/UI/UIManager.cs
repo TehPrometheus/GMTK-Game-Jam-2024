@@ -7,7 +7,11 @@ public class UIManager : MonoBehaviour
     public GameObject gameOverScreen;
     public TextMeshProUGUI scoreTMP;
     public TextMeshProUGUI multiplierTMP;
-    //public TextMeshProUGUI sicknessTMP;
+    public TextMeshProUGUI sicknessTMP;
+    public GameObject infoScreen;
+    public TextMeshProUGUI gluttonyLevelTMP;
+    public TextMeshProUGUI speedLevelTMP;
+    public TextMeshProUGUI immunityLevelTMP;
     public Slider sicknessBar;
     private int score = 0;
     private int multiplier = 1;
@@ -27,6 +31,7 @@ public class UIManager : MonoBehaviour
         sicknessBar.value = 0f;
         sicknessBar.maxValue = 100f;
         gameOverScreen.SetActive(false);
+        infoScreen.SetActive(false);
     }
 
     private void Update()
@@ -95,6 +100,13 @@ public class UIManager : MonoBehaviour
     private void UpdateSicknessText()
     {
         //sicknessTMP.text = "Sickness: " + sickness.ToString("F2") + "%";
+    }
+    public void UpdateInfoScreen(bool active, int[] levels)
+    {
+        gluttonyLevelTMP.text = levels[0].ToString();
+        speedLevelTMP.text = levels[1].ToString();
+        immunityLevelTMP.text = levels[2].ToString();
+        infoScreen.SetActive(active);
     }
 
 

@@ -111750,6 +111750,11 @@ MonoBehaviour:
   gameOverScreen: {fileID: 791649537}
   scoreTMP: {fileID: 2028445067}
   multiplierTMP: {fileID: 1368535092}
+  sicknessTMP: {fileID: 0}
+  infoScreen: {fileID: 824435898}
+  gluttonyLevelTMP: {fileID: 1878758488}
+  speedLevelTMP: {fileID: 1758853501}
+  immunityLevelTMP: {fileID: 1835886614}
   sicknessBar: {fileID: 424558353}
   sicknessScalingFactor: 1
 --- !u!224 &1107658618
