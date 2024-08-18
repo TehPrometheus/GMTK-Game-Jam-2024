@@ -124,7 +124,7 @@ public class EnemyVirus : MonoBehaviour
     {
         pointValue += resources.gluttonyLevel * pointIncreaseValue;
         enemyKilled?.Invoke(pointValue);
-        int[] resourceAmounts = new int[] { 105, 0, 0, 0 };
+        int[] resourceAmounts = new int[] { 10, 10, 10, 0 };
         resourcesReleased?.Invoke(resourceAmounts);
         Destroy(gameObject);
     }
