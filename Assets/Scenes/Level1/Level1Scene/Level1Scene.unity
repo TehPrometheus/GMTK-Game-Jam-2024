@@ -127384,6 +127384,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4256131453515884828, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ae8cb125b461cc4ba628e61b4b34a67, type: 3}
+    - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.95
+      objectReference: {fileID: 0}
     - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: maxSpawnTime
       value: 0.25
@@ -127538,14 +127546,6 @@ PrefabInstance:
     - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: maxSpawnTime
-      value: 0.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: enemyCapacity
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
