@@ -127376,79 +127376,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!1001 &1815234667
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4256131453515884828, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3ae8cb125b461cc4ba628e61b4b34a67, type: 3}
-    - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: maxSpawnTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
-      propertyPath: enemyCapacity
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -12.896065
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 67.04263
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.3261694
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1842872677945918429, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7838183833575016467, guid: 3b2590a0c04783f4fb69736df4730d8a, type: 3}
-      propertyPath: m_Name
-      value: Spawner Location (6)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
 --- !u!1 &2048433117
 GameObject:
   m_ObjectHideFlags: 0
@@ -127548,8 +127475,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 5342389609264152098, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
+    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: maxSpawnTime
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9067800091980711678, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
+      propertyPath: enemyCapacity
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -127757,5 +127692,4 @@ SceneRoots:
   - {fileID: 1313807534454157651}
   - {fileID: 1055849322}
   - {fileID: 2066124266}
-  - {fileID: 1815234667}
   - {fileID: 889126102}

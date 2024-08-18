@@ -164,9 +164,9 @@ public class Player : MonoBehaviour
     {
         // If player is changing size zoom in or out, otherwise keep the same distance.
         if (zoomOut)
-            mainCamera.orthographicSize = Mathf.Max(mainCamera.orthographicSize - transform.localScale.x * cameraZoomFactor, minCameraSize);
+            mainCamera.orthographicSize = Mathf.Max(mainCamera.orthographicSize + transform.localScale.x * cameraZoomFactor, minCameraSize);
         else
-            mainCamera.orthographicSize = Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomFactor, maxCameraSize);
+            mainCamera.orthographicSize = Mathf.Min(mainCamera.orthographicSize - transform.localScale.x * cameraZoomFactor, maxCameraSize);
     }
 
     void Dash(float time)
