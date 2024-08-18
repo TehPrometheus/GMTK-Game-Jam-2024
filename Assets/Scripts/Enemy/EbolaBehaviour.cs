@@ -144,7 +144,7 @@ public class EbolaBehaviour : MonoBehaviour
     {
         pointValue += resources.gluttonyLevel * pointIncreaseValue;
         enemyKilled?.Invoke(pointValue);
-        int[] resourceAmounts = new int[] { 105, 0, 0, 0 };
+        int[] resourceAmounts = new int[] { 0, 0, 0, 0 };
         resourcesReleased?.Invoke(resourceAmounts);
         Destroy(gameObject);
     }

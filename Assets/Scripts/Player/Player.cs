@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 // Enemy spike ability -> get spiked by enemy -> lower your size level
 public class Player : MonoBehaviour
 {
@@ -77,6 +78,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(input.InfoScreen>0f)
+        {
+            int[] res = new int[] { resources.gluttonyLevel, resources.speedLevel, resources.immunityLevel };
+            uiManager.UpdateInfoScreen(true, res);
+        }
+        else
+        {
+            int[] res = new int[] { resources.gluttonyLevel, resources.speedLevel, resources.immunityLevel };
+            uiManager.UpdateInfoScreen(false, res);
+        }
         mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         // If player presses shift and player has waited cooldown seconds, start dashing
         if (input.Dash > 0f && dashCoolDown >= maxDashCoolDown && input.Move.magnitude > 0)

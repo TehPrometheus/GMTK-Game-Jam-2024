@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e17e0b78a9281841becf421a7f454ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gluttonyLevel: 10
+  gluttonyLevel: 0
   speedLevel: 0
   immunityLevel: 0
   dashLevel: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   immunityResources: 0
   dashResources: 0
   resourcesNeededToLevel: 100
+  maxLevel: 10
 --- !u!114 &4907463447940331525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +261,7 @@ MonoBehaviour:
   immunityResources: 0
   dashResources: 0
   resourcesNeededToLevel: 100
+  maxLevel: 10
 --- !u!50 &1189785432427431111
 Rigidbody2D:
   serializedVersion: 4

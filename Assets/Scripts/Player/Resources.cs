@@ -16,6 +16,8 @@ public class Resources : MonoBehaviour
     [Range(0, 10)]
     public int dashLevel;
 
+    
+    
     // Resources
     [Header("Resources")]
     [Range(0, 100)]
@@ -28,6 +30,7 @@ public class Resources : MonoBehaviour
     [SerializeField] int dashResources;
     [Range(0, 100)]
     public int resourcesNeededToLevel = 100;
+    public int maxLevel = 10;
 
 
 
@@ -62,7 +65,7 @@ public class Resources : MonoBehaviour
     }
     public void AddResource(ResourceType resourceType, int resource)
     {
-        if(resourceType == ResourceType.gluttony)
+        if(resourceType == ResourceType.gluttony && gluttonyLevel<maxLevel)
         {
             gluttonyResources += resource;
             if(gluttonyResources >= resourcesNeededToLevel)
@@ -73,7 +76,7 @@ public class Resources : MonoBehaviour
             }
            
         }
-        else if (resourceType == ResourceType.speed)
+        else if (resourceType == ResourceType.speed && speedLevel < maxLevel)
         {
             speedResources += resource;
             if(speedResources >= resourcesNeededToLevel)
@@ -83,7 +86,7 @@ public class Resources : MonoBehaviour
 
             }
         }
-        else if (resourceType == ResourceType.immunity)
+        else if (resourceType == ResourceType.immunity && immunityLevel < maxLevel)
         {
             immunityResources += resource;
             if (immunityResources >= resourcesNeededToLevel)
@@ -93,7 +96,7 @@ public class Resources : MonoBehaviour
 
             }
         }
-        else if (resourceType == ResourceType.dash)
+        else if (resourceType == ResourceType.dash && dashLevel < maxLevel)
         {
             dashResources += resource;
             if (dashResources >= resourcesNeededToLevel)
@@ -103,6 +106,8 @@ public class Resources : MonoBehaviour
 
             }
         }
-       
+        
+
+
     }
 }
