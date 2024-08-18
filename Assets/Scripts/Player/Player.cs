@@ -205,7 +205,7 @@ public class Player : MonoBehaviour
 
     public void UpdateSizeXP(int basePoints)
     {
-        sizeXP++;
+        sizeXP+=basePoints;
         //Debug.Log("My sizeXP is " + sizeXP);
         IncreaseSizeLevel();
     }
