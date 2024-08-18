@@ -122,9 +122,9 @@ public class EnemyVirus : MonoBehaviour
 
     public void Die()
     {
-        pointValue+=resources.gluttonyLevel*pointIncreaseValue;
+        pointValue += resources.gluttonyLevel * pointIncreaseValue;
         enemyKilled?.Invoke(pointValue);
-        int[] resourceAmounts = new int[] { 105, 0, 0, 0};
+        int[] resourceAmounts = new int[] { 105, 0, 0, 0 };
         resourcesReleased?.Invoke(resourceAmounts);
         Destroy(gameObject);
     }
@@ -142,6 +142,6 @@ public class EnemyVirus : MonoBehaviour
             dirChangeCooldown = UnityEngine.Random.Range(0f, 2f);
         }
     }
-  
+
 }
 
