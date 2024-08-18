@@ -19766,18 +19766,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2838632306947082657, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2838632306947082657, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2838632306947082657, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2838632306947082657, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.86
       objectReference: {fileID: 0}
@@ -19817,22 +19805,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3072926272224021892, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6f1ef09022482454b90161513fb399be, type: 2}
     - target: {fileID: 5342389609264152098, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
       propertyPath: m_Name
       value: Ebola (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4076836723713746089, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
+    - target: {fileID: 7631429144185569128, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
+      propertyPath: maxDashTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7631429144185569128, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
+      propertyPath: maxDashCoolDown
+      value: 2.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7631429144185569128, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
+      propertyPath: maxDashMultiplier
+      value: 35.1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5342389609264152098, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2069301618}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
 --- !u!1 &1010093633
 GameObject:
@@ -20526,27 +20518,6 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: 81c346ea041ceaf418ff593350ed8837, type: 2}
---- !u!1 &2069301610 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5342389609264152098, guid: 0f65aa2996015cc4fbaca22f344d7e1a, type: 3}
-  m_PrefabInstance: {fileID: 1003219687}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2069301618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069301610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18fbf930a299bc4479a11543c998aad7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  pointValue: 100
-  pointIncreaseValue: 50
-  evadeDistance: 5
 --- !u!1001 &1675492686299238023
 PrefabInstance:
   m_ObjectHideFlags: 0

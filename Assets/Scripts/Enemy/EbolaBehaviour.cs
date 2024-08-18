@@ -6,12 +6,14 @@ using UnityEngine.AI;
 
 public class EbolaBehaviour : MonoBehaviour
 {
-    private enum enemyAIStates
+    
+    public enum enemyAIStates
     {
         wander,
-        evade
+        evade,
+        dash
     }
-    private enemyAIStates currentState = enemyAIStates.wander;
+    public enemyAIStates currentState = enemyAIStates.wander;
     [Range(0, 10)]
     public float speed = 3f;
     private Transform playerTransform;
@@ -23,12 +25,22 @@ public class EbolaBehaviour : MonoBehaviour
     private UIManager uiManager;
     private SpawnVirus virusSpawner;
     public event Action<int> enemyKilled;
-    public event Action playerSpiked;
     public event Action<int[]> resourcesReleased;
     private Resources resources;
     private Animator animator;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
+
+
+    [Header("ExecuteDashState Variables")]
+    [Range(1, 50)]
+    public float maxDashMultiplier = 10f;
+    [Range(1, 50)]
+    public float maxDashTime = 2f;
+    private float currentDashTime = 0f;
+    [Range(0, 10)]
+    public float maxDashCoolDown = 6f;
+    public float dashCoolDown;
     // Start is called before the first frame update
 
     void Start()
@@ -48,14 +60,21 @@ public class EbolaBehaviour : MonoBehaviour
         enemyKilled += virusSpawner.VirusDied;
         resourcesReleased += resources.AddResources;
         enemyKilled += player.UpdateSizeXP;
-        playerSpiked += player.DecreaseSizeLevel;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // If current dash time is over, dash 
+        if (currentDashTime <= 0)
+        {
+            agent.speed = speed;
+            dashCoolDown += Time.deltaTime;
+        }
+        currentDashTime -= Time.deltaTime;
         var distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        if (distanceToPlayer < evadeDistance)
+        if(distanceToPlayer < evadeDistance) 
         {
             currentState = enemyAIStates.evade;
         }
@@ -63,6 +82,7 @@ public class EbolaBehaviour : MonoBehaviour
         {
             currentState = enemyAIStates.wander;
         }
+        
         ExecuteBehaviour();
     }
 
@@ -76,6 +96,7 @@ public class EbolaBehaviour : MonoBehaviour
             case enemyAIStates.evade:
                 ExecuteEvadeState();
                 break;
+                  
         }
     }
 
@@ -92,7 +113,7 @@ public class EbolaBehaviour : MonoBehaviour
         HandleDirectionChange();
         var destination = transform.position + targetDir;
         agent.SetDestination(destination);
-        FaceTarget();
+        FaceAwayFromTarget();
         Debug.DrawLine(transform.position, destination, Color.red);
     }
     
@@ -105,9 +126,21 @@ public class EbolaBehaviour : MonoBehaviour
         var destination = -vectorToPlayerNormalized * speed + myPos;
 
         Debug.DrawLine(transform.position, destination, Color.green);
+        // If cooldown is done, increase speed and acc
+        if(dashCoolDown>=maxDashCoolDown)
+        {
+            // Reset dash time
+            dashCoolDown = 0f;
+            agent.speed *= maxDashMultiplier;
+            currentDashTime = maxDashTime;
+
+        }
+        
+        
+
 
         agent.SetDestination(destination);
-        FaceTarget();
+        FaceAwayFromTarget();
     }
 
     public void Die()
@@ -133,7 +166,7 @@ public class EbolaBehaviour : MonoBehaviour
         }
 
     }
-    void FaceTarget()
+    void FaceAwayFromTarget()
     {
         var vel = agent.velocity;
         vel.z = 0;
@@ -143,4 +176,5 @@ public class EbolaBehaviour : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward,vel);
         }
     }
+    
 }
