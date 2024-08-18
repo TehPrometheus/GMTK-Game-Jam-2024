@@ -6,7 +6,7 @@ public class SceneLoader : MonoBehaviour
     public void HandlePlayButton()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Level1Scene");
+        SceneManager.LoadScene("testScene");
     }
     public void HandleOptionsButton()
     {
