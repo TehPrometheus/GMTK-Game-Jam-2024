@@ -98,7 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fbf930a299bc4479a11543c998aad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   speed: 3
   pointValue: 100
   pointIncreaseValue: 50
   evadeDistance: 5
+  maxDashMultiplier: 35.1
+  maxDashTime: 1
+  maxDashCoolDown: 2.15
+  dashCoolDown: 0
