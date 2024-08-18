@@ -22,8 +22,8 @@ public class Player : MonoBehaviour
     public event Action<int> sizeLevelChanged;
     public UIManager uiManager;
 
-    // Dash variables
-    [Header("Dash Variables")]
+    // ExecuteDashState variables
+    [Header("ExecuteDashState Variables")]
     [Range(1, 10)]
     public float maxDashMultiplier = 10f;
     private float maxDashTime = 0.5f;
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(transform.localScale);
+
         resources = GetComponent<Resources>();
         dashCoolDown = maxDashCoolDown;
         sizeLevelChanged += uiManager.UpdateMultiplierValue;

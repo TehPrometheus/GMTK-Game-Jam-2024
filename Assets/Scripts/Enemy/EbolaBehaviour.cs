@@ -1,17 +1,21 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyVirus : MonoBehaviour
+public class EbolaBehaviour : MonoBehaviour
 {
-    private enum enemyAIStates
+    
+    public enum enemyAIStates
     {
         wander,
-        evade
+        evade,
+        dash
     }
-    private enemyAIStates currentState = enemyAIStates.wander;
+    public enemyAIStates currentState = enemyAIStates.wander;
     [Range(0, 10)]
-    public float speed = 5f;
+    public float speed = 3f;
     private Transform playerTransform;
     private Vector3 targetDir;
     private NavMeshAgent agent;
@@ -21,22 +25,34 @@ public class EnemyVirus : MonoBehaviour
     private UIManager uiManager;
     private SpawnVirus virusSpawner;
     public event Action<int> enemyKilled;
-    public event Action playerSpiked;
     public event Action<int[]> resourcesReleased;
     private Resources resources;
+    private Animator animator;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
+
+
+    [Header("ExecuteDashState Variables")]
+    [Range(1, 50)]
+    public float maxDashMultiplier = 10f;
+    [Range(1, 50)]
+    public float maxDashTime = 2f;
+    private float currentDashTime = 0f;
+    [Range(0, 10)]
+    public float maxDashCoolDown = 6f;
+    public float dashCoolDown;
     // Start is called before the first frame update
-    private bool isSpiky = false;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         Player player = FindAnyObjectByType<Player>();
         resources = player.GetComponent<Resources>();
         playerTransform = player.transform;
         uiManager = FindAnyObjectByType<UIManager>();
         virusSpawner = FindAnyObjectByType<SpawnVirus>();
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
+        agent.updateRotation = true;
         agent.updateUpAxis = false;
         agent.speed = speed;
         targetDir = transform.up;
@@ -44,14 +60,21 @@ public class EnemyVirus : MonoBehaviour
         enemyKilled += virusSpawner.VirusDied;
         resourcesReleased += resources.AddResources;
         enemyKilled += player.UpdateSizeXP;
-        playerSpiked += player.DecreaseSizeLevel;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // If current dash time is over, dash 
+        if (currentDashTime <= 0)
+        {
+            agent.speed = speed;
+            dashCoolDown += Time.deltaTime;
+        }
+        currentDashTime -= Time.deltaTime;
         var distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        if (distanceToPlayer < evadeDistance)
+        if(distanceToPlayer < evadeDistance) 
         {
             currentState = enemyAIStates.evade;
         }
@@ -59,6 +82,7 @@ public class EnemyVirus : MonoBehaviour
         {
             currentState = enemyAIStates.wander;
         }
+        
         ExecuteBehaviour();
     }
 
@@ -72,6 +96,7 @@ public class EnemyVirus : MonoBehaviour
             case enemyAIStates.evade:
                 ExecuteEvadeState();
                 break;
+                  
         }
     }
 
@@ -79,15 +104,7 @@ public class EnemyVirus : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            if (isSpiky)
-            {
-                // decrease the player's sizeLevel ONCE
-                playerSpiked?.Invoke();
-            }
-            else
-            {
-                Die();
-            }
+            Die();
         }
     }
 
@@ -96,17 +113,10 @@ public class EnemyVirus : MonoBehaviour
         HandleDirectionChange();
         var destination = transform.position + targetDir;
         agent.SetDestination(destination);
+        FaceAwayFromTarget();
         Debug.DrawLine(transform.position, destination, Color.red);
     }
-    public void BeginSpikeAbility()
-    {
-        isSpiky = true;
-    }
-
-    public void EndSpikeAbility()
-    {
-        isSpiky = false;
-    }
+    
 
     private void ExecuteEvadeState()
     {
@@ -116,15 +126,28 @@ public class EnemyVirus : MonoBehaviour
         var destination = -vectorToPlayerNormalized * speed + myPos;
 
         Debug.DrawLine(transform.position, destination, Color.green);
+        // If cooldown is done, increase speed and acc
+        if(dashCoolDown>=maxDashCoolDown)
+        {
+            // Reset dash time
+            dashCoolDown = 0f;
+            agent.speed *= maxDashMultiplier;
+            currentDashTime = maxDashTime;
+
+        }
+        
+        
+
 
         agent.SetDestination(destination);
+        FaceAwayFromTarget();
     }
 
     public void Die()
     {
-        pointValue+=resources.gluttonyLevel*pointIncreaseValue;
+        pointValue += resources.gluttonyLevel * pointIncreaseValue;
         enemyKilled?.Invoke(pointValue);
-        int[] resourceAmounts = new int[] { 105, 0, 0, 0};
+        int[] resourceAmounts = new int[] { 105, 0, 0, 0 };
         resourcesReleased?.Invoke(resourceAmounts);
         Destroy(gameObject);
     }
@@ -137,11 +160,21 @@ public class EnemyVirus : MonoBehaviour
         {
             var randomAngle = UnityEngine.Random.Range(0f, 360f);
             var rotation = Quaternion.AngleAxis(randomAngle, transform.forward);
-
+            
             targetDir = rotation * targetDir;
             dirChangeCooldown = UnityEngine.Random.Range(0f, 2f);
         }
-    }
-  
-}
 
+    }
+    void FaceAwayFromTarget()
+    {
+        var vel = agent.velocity;
+        vel.z = 0;
+
+        if (vel != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward,vel);
+        }
+    }
+    
+}
