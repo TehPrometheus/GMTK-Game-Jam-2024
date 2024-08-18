@@ -130203,7 +130203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4257755643441501419, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7543702477841883976, guid: 70be0df33e7dc8849a4a2f2d3c28351a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -130534,25 +130534,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1189785432427431111, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2663082443240080440, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3110264787155738965, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3110264787155738965, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3110264787155738965, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3110264787155738965, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: m_LocalPosition.x
@@ -130593,10 +130577,6 @@ PrefabInstance:
     - target: {fileID: 3110264787155738965, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3110264787155738965, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6489998989839929836, guid: 563fc2af7a772be41aa50478de2c0301, type: 3}
       propertyPath: uiManager
