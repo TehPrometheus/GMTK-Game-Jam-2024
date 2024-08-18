@@ -25,6 +25,7 @@ public class EnemyVirus : MonoBehaviour
     public event Action<int[]> resourcesReleased;
     public CircleCollider2D circleCollider;
     private Resources resources;
+    private Vector3 destination;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
     // Start is called before the first frame update
@@ -94,7 +95,7 @@ public class EnemyVirus : MonoBehaviour
     private void ExecuteWanderState()
     {
         HandleDirectionChange();
-        var destination = transform.position + targetDir;
+        destination = transform.position + targetDir;
         agent.SetDestination(destination);
         Debug.DrawLine(transform.position, destination, Color.red);
     }
@@ -113,7 +114,7 @@ public class EnemyVirus : MonoBehaviour
         var playerPos = playerTransform.position;
         var myPos = transform.position;
         var vectorToPlayerNormalized = (playerPos - myPos).normalized;
-        var destination = -vectorToPlayerNormalized * speed + myPos;
+        destination = -vectorToPlayerNormalized * speed + myPos;
 
         Debug.DrawLine(transform.position, destination, Color.green);
 
