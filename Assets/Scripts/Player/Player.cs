@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 // Enemy spike ability -> get spiked by enemy -> lower your size level
 public class Player : MonoBehaviour
@@ -31,13 +30,12 @@ public class Player : MonoBehaviour
     [Range(0, 10)]
     public float maxDashCoolDown = 6f;
     private float dashCoolDown;
-    public TextMeshProUGUI coolDownText;
 
     // Speed variables
     [Header("Speed Variables")]
     [Range(0, 10)]
     public float speed = 5f;
-    
+
 
 
     [Header("Camera Variables")]
@@ -54,16 +52,21 @@ public class Player : MonoBehaviour
 
 
     private Resources resources;
-
+    private Rigidbody2D rb;
+    private Vector2 mousePos;
     InputReader input;
     // Start is called before the first frame update
     void Awake()
     {
         input = GetComponent<InputReader>();
+        rb = GetComponent<Rigidbody2D>();
     }
     private void Start()
     {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         resources = GetComponent<Resources>();
         dashCoolDown = maxDashCoolDown;
         sizeLevelChanged += uiManager.UpdateMultiplierValue;
@@ -71,6 +74,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         // If player presses shift and player has waited cooldown seconds, start dashing
         if (input.Dash > 0f && dashCoolDown >= maxDashCoolDown && input.Move.magnitude > 0)
         {
@@ -94,15 +98,12 @@ public class Player : MonoBehaviour
             // Increase cooldown until at max dash cooldown
             dashCoolDown += Time.deltaTime;
             maxDashCoolDown = 6f;
-            maxDashCoolDown -= resources.dashLevel*0.55f;
+            maxDashCoolDown -= resources.dashLevel * 0.55f;
             dashCoolDown = Mathf.Min(dashCoolDown, maxDashCoolDown);
-            
-            // Only move player when not in the action of Dashing
-            MovePlayer();
-        }
 
-        // Debug text
-        coolDownText.text = dashCoolDown.ToString();
+            // Only move player when not in the action of Dashing
+            //MovePlayer();
+        }
 
         // Growing Mechanic
         //if (input.Grow > 0f)
@@ -125,34 +126,35 @@ public class Player : MonoBehaviour
         MoveCamera();
     }
 
+    private void FixedUpdate()
+    {
+        if (!(input.Dash > 0f && dashCoolDown >= maxDashCoolDown && input.Move.magnitude > 0))
+            MovePlayer();
+
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
+    }
+
     void MovePlayer()
     {
-        // Create a new Vector3 representing the change in movement since the last frame
-        Vector3 delta = new Vector3(input.Move.x, input.Move.y, 0);
-        // Multiply by speed so that we can control it
-        delta *= speed * (resources.speedLevel + 1);
-        // Multiply by deltaTime so that the movement is framerate independent
-        delta *= Time.deltaTime;
-
-        // Update the player's position by adding the change in movement
-        transform.position += delta;
+        rb.MovePosition(rb.position + input.Move * speed * Time.deltaTime);
     }
 
     void MoveCamera()
     {
-        // If player is changing size zoom in or out, otherwise keep the same distance.
-        if (isGrowing)
-        {
-            mainCamera.orthographicSize = Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomFactor, maxCameraSize);
-
-        }
-        else if (isShrinking)
-        {
-            mainCamera.orthographicSize = Mathf.Max(mainCamera.orthographicSize - transform.localScale.x * cameraZoomFactor, minCameraSize);
-        }
 
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
+    }
+
+    void ZoomCamera(bool zoomOut)
+    {
+        // If player is changing size zoom in or out, otherwise keep the same distance.
+        if (zoomOut)
+            mainCamera.orthographicSize = Mathf.Max(mainCamera.orthographicSize - transform.localScale.x * cameraZoomFactor, minCameraSize);
+        else
+            mainCamera.orthographicSize = Mathf.Min(mainCamera.orthographicSize + transform.localScale.x * cameraZoomFactor, maxCameraSize);
     }
 
     void Dash(float time)
@@ -210,6 +212,7 @@ public class Player : MonoBehaviour
                 sizeLevel = i + 1;
                 Debug.Log("I have increased to level " + sizeLevel);
                 Debug.Log("My sizeXP is " + sizeXP);
+                ZoomCamera(true);
                 sizeLevelChanged?.Invoke(sizeLevel);
                 return;
             }
@@ -225,6 +228,7 @@ public class Player : MonoBehaviour
         Debug.Log("I have decreased to level " + sizeLevel);
         Debug.Log("My sizeXP is " + sizeXP);
         transform.localScale -= new Vector3(sizeChange, sizeChange, 0);
+        ZoomCamera(false);
         sizeLevelChanged?.Invoke(sizeLevel);
     }
 
