@@ -26,19 +26,21 @@ public class EbolaBehaviour : MonoBehaviour
     public event Action playerSpiked;
     public event Action<int[]> resourcesReleased;
     private Resources resources;
+    private Animator animator;
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
     // Start is called before the first frame update
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         Player player = FindAnyObjectByType<Player>();
         resources = player.GetComponent<Resources>();
         playerTransform = player.transform;
         uiManager = FindAnyObjectByType<UIManager>();
         virusSpawner = FindAnyObjectByType<SpawnVirus>();
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
+        agent.updateRotation = true;
         agent.updateUpAxis = false;
         agent.speed = speed;
         targetDir = transform.up;
@@ -90,6 +92,7 @@ public class EbolaBehaviour : MonoBehaviour
         HandleDirectionChange();
         var destination = transform.position + targetDir;
         agent.SetDestination(destination);
+        FaceTarget();
         Debug.DrawLine(transform.position, destination, Color.red);
     }
     
@@ -104,6 +107,7 @@ public class EbolaBehaviour : MonoBehaviour
         Debug.DrawLine(transform.position, destination, Color.green);
 
         agent.SetDestination(destination);
+        FaceTarget();
     }
 
     public void Die()
@@ -123,10 +127,20 @@ public class EbolaBehaviour : MonoBehaviour
         {
             var randomAngle = UnityEngine.Random.Range(0f, 360f);
             var rotation = Quaternion.AngleAxis(randomAngle, transform.forward);
-
+            
             targetDir = rotation * targetDir;
             dirChangeCooldown = UnityEngine.Random.Range(0f, 2f);
         }
 
+    }
+    void FaceTarget()
+    {
+        var vel = agent.velocity;
+        vel.z = 0;
+
+        if (vel != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward,vel);
+        }
     }
 }
