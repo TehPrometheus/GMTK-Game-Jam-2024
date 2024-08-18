@@ -37,4 +37,10 @@ public class SpawnVirus : MonoBehaviour
         amountOfVirusses--;
         virusCountChanged?.Invoke(amountOfVirusses);
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, spawnRadius);
+    }
 }
