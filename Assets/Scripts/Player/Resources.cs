@@ -76,7 +76,7 @@ public class Resources : MonoBehaviour
             }
            
         }
-        else if (resourceType == ResourceType.speed && gluttonyLevel < maxLevel)
+        else if (resourceType == ResourceType.speed && speedLevel < maxLevel)
         {
             speedResources += resource;
             if(speedResources >= resourcesNeededToLevel)
