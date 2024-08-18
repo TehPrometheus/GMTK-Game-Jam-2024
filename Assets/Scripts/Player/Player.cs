@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(transform.localScale);
+
         resources = GetComponent<Resources>();
         dashCoolDown = maxDashCoolDown;
         sizeLevelChanged += uiManager.UpdateMultiplierValue;

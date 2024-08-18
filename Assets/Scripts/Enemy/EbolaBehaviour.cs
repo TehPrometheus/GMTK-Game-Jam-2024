@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyVirus : MonoBehaviour
+public class EbolaBehaviour : MonoBehaviour
 {
     private enum enemyAIStates
     {
@@ -11,7 +13,7 @@ public class EnemyVirus : MonoBehaviour
     }
     private enemyAIStates currentState = enemyAIStates.wander;
     [Range(0, 10)]
-    public float speed = 5f;
+    public float speed = 3f;
     private Transform playerTransform;
     private Vector3 targetDir;
     private NavMeshAgent agent;
@@ -27,7 +29,7 @@ public class EnemyVirus : MonoBehaviour
     [Range(0, 10)]
     public float evadeDistance = 5f; // the minimal distance between the enemy and the player before it begins to evade the player
     // Start is called before the first frame update
-    private bool isSpiky = false;
+
     void Start()
     {
         Player player = FindAnyObjectByType<Player>();
@@ -79,15 +81,7 @@ public class EnemyVirus : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            if (isSpiky)
-            {
-                // decrease the player's sizeLevel ONCE
-                playerSpiked?.Invoke();
-            }
-            else
-            {
-                Die();
-            }
+            Die();
         }
     }
 
@@ -98,15 +92,7 @@ public class EnemyVirus : MonoBehaviour
         agent.SetDestination(destination);
         Debug.DrawLine(transform.position, destination, Color.red);
     }
-    public void BeginSpikeAbility()
-    {
-        isSpiky = true;
-    }
-
-    public void EndSpikeAbility()
-    {
-        isSpiky = false;
-    }
+    
 
     private void ExecuteEvadeState()
     {
@@ -122,9 +108,9 @@ public class EnemyVirus : MonoBehaviour
 
     public void Die()
     {
-        pointValue+=resources.gluttonyLevel*pointIncreaseValue;
+        pointValue += resources.gluttonyLevel * pointIncreaseValue;
         enemyKilled?.Invoke(pointValue);
-        int[] resourceAmounts = new int[] { 105, 0, 0, 0};
+        int[] resourceAmounts = new int[] { 105, 0, 0, 0 };
         resourcesReleased?.Invoke(resourceAmounts);
         Destroy(gameObject);
     }
@@ -141,7 +127,6 @@ public class EnemyVirus : MonoBehaviour
             targetDir = rotation * targetDir;
             dirChangeCooldown = UnityEngine.Random.Range(0f, 2f);
         }
-    }
-  
-}
 
+    }
+}
