@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 // Enemy spike ability -> get spiked by enemy -> lower your size level
 public class Player : MonoBehaviour
 {
@@ -78,7 +77,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(input.InfoScreen>0f)
+        if (input.InfoScreen > 0f)
         {
             int[] res = new int[] { resources.gluttonyLevel, resources.speedLevel, resources.immunityLevel };
             uiManager.UpdateInfoScreen(true, res);
@@ -149,7 +148,7 @@ public class Player : MonoBehaviour
 
     void MovePlayer()
     {
-        Vector3 delta = new Vector3(input.Move.x, input.Move.y, 0) * speed * Time.fixedDeltaTime;
+        Vector3 delta = new Vector3(input.Move.x, input.Move.y, 0) * speed * Time.deltaTime;
         transform.position += delta;
         //rb.MovePosition(rb.position + input.Move * speed * Time.fixedDeltaTime);
     }
