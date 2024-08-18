@@ -63,10 +63,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
         resources = GetComponent<Resources>();
         dashCoolDown = maxDashCoolDown;
         sizeLevelChanged += uiManager.UpdateMultiplierValue;
