@@ -11,6 +11,9 @@ public class EbolaBehaviour : MonoBehaviour
         evade,
         dash
     }
+    //audio variables
+    public AudioClip deathAudioClip_1;
+    public AudioClip deathAudioClip_2;
     public enemyAIStates currentState = enemyAIStates.wander;
     [Range(0, 10)]
     public float speed = 3f;
@@ -146,6 +149,16 @@ public class EbolaBehaviour : MonoBehaviour
         enemyKilled?.Invoke(pointValue);
         int[] resourceAmounts = new int[] { 0, 10, 0, 0 };
         resourcesReleased?.Invoke(resourceAmounts);
+        //play random audio clip on death
+        int audioNbr = UnityEngine.Random.Range(1, 100);
+        if (1 <= audioNbr && audioNbr < 80)
+        {
+            AudioSource.PlayClipAtPoint(deathAudioClip_1, transform.position);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(deathAudioClip_2, transform.position);
+        }
         Destroy(gameObject);
     }
 
