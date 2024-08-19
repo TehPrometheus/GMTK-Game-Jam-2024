@@ -12,6 +12,11 @@ public class SceneLoader : MonoBehaviour
     {
 
     }
+
+    public void HandleTutorialButton()
+    {
+        SceneManager.LoadScene("TutorialScene");
+    }
     public void HandleQuitButton()
     {
         Application.Quit();
