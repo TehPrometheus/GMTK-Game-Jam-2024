@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     [Range(0, 10)]
     public float speed = 5f;
 
-
+    public AudioClip growthAudioClip;
 
     [Header("Camera Variables")]
     [SerializeField]
@@ -226,6 +226,10 @@ public class Player : MonoBehaviour
                 Debug.Log("My sizeXP is " + sizeXP);
                 ZoomCamera(true);
                 sizeLevelChanged?.Invoke(sizeLevel);
+
+                //play audio clip on growth
+                AudioSource.PlayClipAtPoint(growthAudioClip, transform.position, 1.0f);
+
                 return;
             }
         }
