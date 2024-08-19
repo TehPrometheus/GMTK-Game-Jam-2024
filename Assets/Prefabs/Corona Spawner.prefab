@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 0.57
-  maxSpawnTime: 0.21
+  maxSpawnTime: 3
   enemy: {fileID: 5492709743357899607, guid: 278f8a04ef548ac4c97b5f86d43cbe6e, type: 3}
-  enemyCapacity: 100
+  enemyCapacity: 10
 --- !u!212 &4256131453515884828
 SpriteRenderer:
   m_ObjectHideFlags: 0
