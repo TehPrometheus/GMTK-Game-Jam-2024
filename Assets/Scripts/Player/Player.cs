@@ -118,22 +118,6 @@ public class Player : MonoBehaviour
             MovePlayer();
         }
 
-        // Growing Mechanic
-        //if (input.Grow > 0f)
-        //{
-        //    isShrinking = false;
-        //    Grow();
-        //}
-        //else if (input.Shrink > 0f)
-        //{
-        //    isGrowing = false;
-        //    Shrink();
-        //}
-        //else
-        //{
-        //    isGrowing = false;
-        //    isShrinking = false;
-        //}
 
 
         MoveCamera();
@@ -186,6 +170,7 @@ public class Player : MonoBehaviour
         // Update the player's position by adding the change in movement
         transform.position += delta;
     }
+
     void Grow()
     {
         // Increase totalSize var and scale (until max is reached). Reduce speedMultiplier
